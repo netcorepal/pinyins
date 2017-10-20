@@ -9,6 +9,7 @@
     <Authors>netcorepal</Authors>
     <RepositoryUrl>https://github.com/netcorepal/pinyins.git</RepositoryUrl>
     <PackageProjectUrl>https://github.com/netcorepal/pinyins</PackageProjectUrl>
+    <PackageTags>netcorepal pinyin</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net45|AnyCPU'">
