@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <PackageReleaseNotes>fix: netstandard2.0 xml documentation file missed</PackageReleaseNotes>
     <Company>netcorepal</Company>
     <Authors>netcorepal</Authors>
