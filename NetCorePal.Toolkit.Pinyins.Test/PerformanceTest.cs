@@ -19,6 +19,8 @@ namespace NetCorePal.Toolkit.Pinyins.Test
             });
 
             watch.Stop();
+
+            //11000 ms  normal
         }
     }
 }

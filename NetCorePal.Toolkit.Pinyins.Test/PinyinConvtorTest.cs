@@ -8,6 +8,7 @@ namespace NetCorePal.Toolkit.Pinyins.Test
         [TestMethod]
         public void ToPinyinsTest()
         {
+
             var v = PinyinConvert.ToPinyins("行行好吧");
 
             Assert.AreEqual(9, v.Length);
@@ -36,6 +37,28 @@ namespace NetCorePal.Toolkit.Pinyins.Test
             Assert.IsTrue(v.Contains("HANGXINGHAOBA".ToLower()));
             Assert.IsTrue(v.Contains("HANGHENGHAOBA".ToLower()));
             Assert.IsTrue(v.Contains("HANGHANGHAOBA".ToLower()));
+
+
+            try
+            {
+                v = PinyinConvert.ToPinyins(null);
+                Assert.Fail("这里应该抛出异常");
+            }
+            catch
+            {
+
+            }
+
+            try
+            {
+                v = PinyinConvert.ToPinyins("");
+                Assert.Fail("这里应该抛出异常");
+            }
+            catch
+            {
+
+            }
+
         }
 
 
@@ -56,6 +79,27 @@ namespace NetCorePal.Toolkit.Pinyins.Test
             Assert.IsTrue(v.Contains("XHHB".ToLower()));
             Assert.IsTrue(v.Contains("HXHB".ToLower()));
             Assert.IsTrue(v.Contains("HHHB".ToLower()));
+
+
+            try
+            {
+                v = PinyinConvert.ToPinyinInitials(null);
+                Assert.Fail("这里应该抛出异常");
+            }
+            catch
+            {
+
+            }
+
+            try
+            {
+                v = PinyinConvert.ToPinyinInitials("");
+                Assert.Fail("这里应该抛出异常");
+            }
+            catch
+            {
+
+            }
         }
 
         [TestMethod]
@@ -109,6 +153,40 @@ namespace NetCorePal.Toolkit.Pinyins.Test
 
             v = PinyinConvert.ToPinyinSearchFomat("行行好吧", separator: ",", lower: true, maxLength: 146);
             Assert.AreEqual(145, v.Length);
+
+
+            try
+            {
+                v = PinyinConvert.ToPinyinSearchFomat(null);
+                Assert.Fail("这里应该抛出异常");
+            }
+            catch
+            {
+
+            }
+
+            try
+            {
+                v = PinyinConvert.ToPinyinSearchFomat("");
+                Assert.Fail("这里应该抛出异常");
+            }
+            catch
+            {
+
+            }
+        }
+
+
+        [TestMethod]
+        public void BigMemoryTest()
+        {
+            var str = "呵呵呵呵呵呵呵呵呵呵呵呵呵呵";
+
+            var v1 = PinyinConvert.ToPinyins(str);
+
+            var v2 = PinyinConvert.ToPinyinInitials(str);
+
+            var v3 = PinyinConvert.ToPinyinSearchFomat(str);
         }
     }
 }

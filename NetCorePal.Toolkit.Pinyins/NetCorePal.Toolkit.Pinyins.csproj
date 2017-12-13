@@ -3,8 +3,10 @@
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.4</Version>
-    <PackageReleaseNotes>fix: netstandard2.0 xml documentation file missed</PackageReleaseNotes>
+    <Version>1.0.5</Version>
+    <PackageReleaseNotes>+ throw ArgumentNullException if str IsNullOrEmpty
++ ToPinyinSearchFomat output max 5000000
++ improve  memory useage</PackageReleaseNotes>
     <Company>netcorepal</Company>
     <Authors>netcorepal</Authors>
     <RepositoryUrl>https://github.com/netcorepal/pinyins.git</RepositoryUrl>
