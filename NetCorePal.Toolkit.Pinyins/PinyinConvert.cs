@@ -121,7 +121,7 @@ namespace NetCorePal.Toolkit.Pinyins
                 }
                 else
                 {
-                    results.ForEach(p => p.Append(chr));
+                    results.ForEach(p => p.Append(lower ? Char.ToLower(chr) : char.ToUpper(chr)));
                 }
             }
             return results;
@@ -143,7 +143,7 @@ namespace NetCorePal.Toolkit.Pinyins
                 }
                 else
                 {
-                    results.ForEach(p => p.Append(chr));
+                    results.ForEach(p => p.Append(lower ? Char.ToLower(chr) : char.ToUpper(chr)));
                 }
             }
             return results;

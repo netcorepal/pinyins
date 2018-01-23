@@ -103,6 +103,35 @@ namespace NetCorePal.Toolkit.Pinyins.Test
         }
 
         [TestMethod]
+        public void ToPinyinInitials_WithUpper_Letter()
+        {
+            var r = PinyinConvert.ToPinyinInitials("张S", true);
+            Assert.AreEqual("zs", r[0]);
+        }
+
+        [TestMethod]
+        public void ToPinyinInitials_WithLower_Letter()
+        {
+            var r = PinyinConvert.ToPinyinInitials("张s");
+            Assert.AreEqual("ZS", r[0]);
+        }
+
+        [TestMethod]
+        public void ToPinyins_WithUpper_Letter()
+        {
+            var r = PinyinConvert.ToPinyins("张S", true);
+            Assert.AreEqual("zhangs", r[0]);
+        }
+        [TestMethod]
+        public void ToPinyins_WithLower_Letter()
+        {
+            var r = PinyinConvert.ToPinyins("张S");
+            Assert.AreEqual("ZHANGS", r[0]);
+        }
+
+
+
+        [TestMethod]
         public void ToPinyinSearchFomatTest()
         {
             var v = PinyinConvert.ToPinyinSearchFomat("行行好吧");

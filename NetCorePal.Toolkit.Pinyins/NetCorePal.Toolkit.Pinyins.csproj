@@ -3,10 +3,8 @@
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.5</Version>
-    <PackageReleaseNotes>+ throw ArgumentNullException if str IsNullOrEmpty
-+ ToPinyinSearchFomat output max 5000000
-+ improve  memory useage</PackageReleaseNotes>
+    <Version>1.0.6</Version>
+    <PackageReleaseNotes>fix:fix output not upper or lower all letter when input contains lower or upper letter</PackageReleaseNotes>
     <Company>netcorepal</Company>
     <Authors>netcorepal</Authors>
     <RepositoryUrl>https://github.com/netcorepal/pinyins.git</RepositoryUrl>
