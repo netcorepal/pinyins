@@ -58,7 +58,16 @@ namespace NetCorePal.Toolkit.Pinyins.Test
             {
 
             }
+        }
 
+
+        [TestMethod]
+        public void ResultOrderTest()
+        {
+            var str = "你不行,他好不,好么";
+
+            var v = PinyinConvert.ToPinyinSearchFomat(str);
+            Assert.AreEqual("NBH,THB,HM;NBX,THB,HM;NBH,THB,HY;NBX,THB,HY;NIBUHANG,TAHAOBU,HAOME;NIBUHENG,TAHAOBU,HAOME;NIBUXING,TAHAOBU,HAOME;NIBUHANG,TAHAOBU,HAOYAO;NIBUHENG,TAHAOBU,HAOYAO;NIBUXING,TAHAOBU,HAOYAO", v);
         }
 
 
@@ -68,17 +77,18 @@ namespace NetCorePal.Toolkit.Pinyins.Test
             var v = PinyinConvert.ToPinyinInitials("行行好吧");
 
             Assert.AreEqual(4, v.Length);
-            Assert.IsTrue(v.Contains("XXHB"));
-            Assert.IsTrue(v.Contains("XHHB"));
-            Assert.IsTrue(v.Contains("HXHB"));
-            Assert.IsTrue(v.Contains("HHHB"));
+            Assert.AreEqual(0, System.Array.IndexOf(v, "HHHB"));
+            Assert.AreEqual(1, System.Array.IndexOf(v, "XHHB"));
+            Assert.AreEqual(2, System.Array.IndexOf(v, "HXHB"));
+            Assert.AreEqual(3, System.Array.IndexOf(v, "XXHB"));
+            
 
             v = PinyinConvert.ToPinyinInitials("行行好吧", true);
             Assert.AreEqual(4, v.Length);
-            Assert.IsTrue(v.Contains("XXHB".ToLower()));
-            Assert.IsTrue(v.Contains("XHHB".ToLower()));
-            Assert.IsTrue(v.Contains("HXHB".ToLower()));
-            Assert.IsTrue(v.Contains("HHHB".ToLower()));
+            Assert.AreEqual(0, System.Array.IndexOf(v, "HHHB".ToLower()));
+            Assert.AreEqual(1, System.Array.IndexOf(v, "XHHB".ToLower()));
+            Assert.AreEqual(2, System.Array.IndexOf(v, "HXHB".ToLower()));
+            Assert.AreEqual(3, System.Array.IndexOf(v, "XXHB".ToLower()));
 
 
             try
@@ -209,13 +219,19 @@ namespace NetCorePal.Toolkit.Pinyins.Test
         [TestMethod]
         public void BigMemoryTest()
         {
-            var str = "呵呵呵呵呵呵呵呵呵呵呵呵呵呵";
+            var str = "长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长";
 
             var v1 = PinyinConvert.ToPinyins(str);
+            Assert.AreEqual(10000, v1.Length);
+
 
             var v2 = PinyinConvert.ToPinyinInitials(str);
-
-            var v3 = PinyinConvert.ToPinyinSearchFomat(str);
+            Assert.AreEqual(10000, v1.Length);
+            var v3 = PinyinConvert.ToPinyinSearchFomat(str, maxLength: 20000);
+            Assert.AreEqual(20000, v3.Length);
         }
+
+
+        
     }
 }

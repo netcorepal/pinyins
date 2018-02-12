@@ -3,8 +3,10 @@
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.6</Version>
-    <PackageReleaseNotes>fix:fix output not upper or lower all letter when input contains lower or upper letter</PackageReleaseNotes>
+    <Version>1.1.0</Version>
+    <PackageReleaseNotes>fix:重构代码，修正多音字过多时内存溢出的问题
++ToPinyins 、ToPinyinInitials添加maxLength参数，限制输出最大数组长度
+</PackageReleaseNotes>
     <Company>netcorepal</Company>
     <Authors>netcorepal</Authors>
     <RepositoryUrl>https://github.com/netcorepal/pinyins.git</RepositoryUrl>

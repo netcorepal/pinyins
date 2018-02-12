@@ -16,31 +16,41 @@ namespace NetCorePal.Toolkit.Pinyins
         /// </summary>
         /// <param name="str">要转换的字符串</param>
         /// <param name="lower">输出小写</param>
+        /// <param name="maxLength">输出数组最大长度，默认10000</param>
         /// <returns></returns>
-        public static string[] ToPinyins(string str, bool lower = false)
+        public static string[] ToPinyins(string str, bool lower = false, int maxLength = 10000)
         {
             if (string.IsNullOrEmpty(str))
             {
                 throw new ArgumentNullException(nameof(str));
             }
-            var results = ToPinyinsImp(str, lower);
+            if (maxLength <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(maxLength));
+            }
+            var results = ToPinyinsImp(str, int.MaxValue, maxLength, 0, lower);
 
-            return ClearAndToArray(results, lower);
+            return results;
         }
         /// <summary>
-        /// 转为拼音首字母，存在多音字则返回各种组合
+        /// 转为拼音首字母，存在多音字则返回各种组合，最大输出不会超过5000000个字符，避免内存溢出
         /// </summary>
         /// <param name="str">要转换的字符串</param>
         /// <param name="lower">是否转为全小写</param>
+        /// <param name="maxLength">输出数组最大长度，默认10000</param>
         /// <returns></returns>
-        public static string[] ToPinyinInitials(string str, bool lower = false)
+        public static string[] ToPinyinInitials(string str, bool lower = false, int maxLength = 10000)
         {
             if (string.IsNullOrEmpty(str))
             {
                 throw new ArgumentNullException(nameof(str));
             }
-            var results = ToPinyinInitialsImp(str, lower);
-            return ClearAndToArray(results, lower);
+            if (maxLength <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(maxLength));
+            }
+            var results = ToPinyinInitialsImp(str, int.MaxValue, maxLength, 0, lower);
+            return results;
         }
 
 
@@ -50,19 +60,19 @@ namespace NetCorePal.Toolkit.Pinyins
         /// <param name="str">要转换的字符串</param>
         /// <param name="separator"></param>
         /// <param name="lower">是否转为全小写</param>
-        /// <param name="maxLength">输出结果最大长度，超过5000000则输出5000000，默认0,表示不截取;否则将根据maxLength截取数据结果</param>
+        /// <param name="maxLength">输出结果最大长度，默认maxLength小于或等于0时，输出最大长度500000，否则将根据maxLength截取数据结果</param>
         /// <returns></returns>
-        public static string ToPinyinSearchFomat(string str, string separator = ";", bool lower = false, int maxLength = 0)
+        public static string ToPinyinSearchFomat(string str, string separator = ";", bool lower = false, int maxLength = 500000)
         {
             if (string.IsNullOrEmpty(str))
             {
                 throw new ArgumentNullException(nameof(str));
             }
 
-            if (maxLength <= 0) { maxLength = MaxLength; }
+            if (maxLength <= 0) { maxLength = OutPutMaxLength; }
 
-            StringBuilder r = new StringBuilder(Math.Min(maxLength, MaxLength));
-            var arr = ToPinyinInitialsImp(str, lower);
+            StringBuilder r = new StringBuilder(Math.Min(maxLength, OutPutMaxLength));
+            var arr = ToPinyinInitialsImp(str, maxLength, int.MaxValue, separator.Length, lower);
             foreach (var item in arr)
             {
                 r.Append(item);
@@ -72,8 +82,7 @@ namespace NetCorePal.Toolkit.Pinyins
                     return r.ToString(0, maxLength);
                 }
             }
-            ClearSbList(arr);
-            arr = ToPinyinsImp(str, lower);
+            arr = ToPinyinsImp(str, maxLength - r.Length, int.MaxValue, separator.Length, lower);
             foreach (var item in arr)
             {
                 r.Append(item);
@@ -83,7 +92,6 @@ namespace NetCorePal.Toolkit.Pinyins
                     return r.ToString(0, maxLength);
                 }
             }
-            ClearSbList(arr);
             r.Remove(r.Length - 1, 1);
             return lower ? r.ToString().ToLower() : r.ToString();
         }
@@ -93,7 +101,7 @@ namespace NetCorePal.Toolkit.Pinyins
         /// <summary>
         /// 输出的最大长度
         /// </summary>
-        const int MaxLength = 5000000;
+        const int OutPutMaxLength = 5000000;
         static ConcurrentDictionary<char, CachedChar> cache = new ConcurrentDictionary<char, CachedChar>();
         static CachedChar GetChart(char chr)
         {
@@ -106,47 +114,19 @@ namespace NetCorePal.Toolkit.Pinyins
             return v;
         }
 
-        static List<StringBuilder> ToPinyinsImp(string str, bool lower = false)
+        static string[] ToPinyinsImp(string str, int maxLength, int maxArrayLength, int separatorLength, bool lower = false)
         {
-            var results = new List<StringBuilder>() { new StringBuilder() };
-            foreach (var chr in str)
-            {
-                if (CanSkip(chr)) { continue; }
+            var ar = ToPinyinsArray(str, lower);
 
-                if (ChineseChar.IsValidChar(chr))
-                {
-                    var cc = GetChart(chr);
-
-                    AppendPinyin(results, cc.Pinyins);
-                }
-                else
-                {
-                    results.ForEach(p => p.Append(lower ? Char.ToLower(chr) : char.ToUpper(chr)));
-                }
-            }
-            return results;
+            return ToPinyinsWorlds(ar, maxLength, maxArrayLength, separatorLength, lower);
         }
 
 
-        static List<StringBuilder> ToPinyinInitialsImp(string str, bool lower = false)
+        static string[] ToPinyinInitialsImp(string str, int maxLength, int maxArrayLength, int separatorLength, bool lower = false)
         {
-            var results = new List<StringBuilder>() { new StringBuilder() };
-            foreach (var chr in str)
-            {
-                if (CanSkip(chr)) { continue; }
+            var ar = ToInitialArray(str, lower);
 
-                if (ChineseChar.IsValidChar(chr))
-                {
-                    var cc = GetChart(chr);
-
-                    AppendPinyin(results, cc.Initials);
-                }
-                else
-                {
-                    results.ForEach(p => p.Append(lower ? Char.ToLower(chr) : char.ToUpper(chr)));
-                }
-            }
-            return results;
+            return ToPinyinsWorlds(ar, maxLength, maxArrayLength, separatorLength, lower);
         }
 
 
@@ -155,45 +135,111 @@ namespace NetCorePal.Toolkit.Pinyins
             return false;
         }
 
-        static void AppendPinyin<T>(List<StringBuilder> sb, T[] array)
+
+        static string[][] ToInitialArray(string str, bool lower)
         {
-            var len = sb.Count;
-
-
-            for (int i = 1; i < array.Length; i++)
+            var ar = new string[str.Length][];
+            for (int i = 0; i < str.Length; i++)
             {
-                for (int j = 0; j < len; j++)
+                var chr = str[i];
+                if (ChineseChar.IsValidChar(chr))
                 {
-                    sb.Add(new StringBuilder(sb[j].ToString()));
+                    var cc = GetChart(chr);
+                    ar[i] = lower ? cc.Initials.Select(p => char.ToLower(p).ToString()).ToArray() : cc.Initials.Select(p => p.ToString()).ToArray();
+                }
+                else
+                {
+                    ar[i] = new string[] { lower ? char.ToLower(chr).ToString() : char.ToUpper(chr).ToString() };
                 }
             }
 
-            for (int j = 0; j < len; j++)
+            return ar;
+        }
+
+        static string[][] ToPinyinsArray(string str, bool lower)
+        {
+            var ar = new string[str.Length][];
+            for (int i = 0; i < str.Length; i++)
             {
-                for (int i = 0; i < array.Length; i++)
+                var chr = str[i];
+                if (ChineseChar.IsValidChar(chr))
                 {
-                    sb[i * len + j].Append(array[i]);
+                    var cc = GetChart(chr);
+                    ar[i] = lower ? cc.Pinyins.Select(p => p.ToLower()).ToArray() : cc.Pinyins;
+                }
+                else
+                {
+                    ar[i] = new string[] { lower ? char.ToLower(chr).ToString() : char.ToUpper(chr).ToString() };
                 }
             }
+
+            return ar;
         }
 
-
-        static string[] ClearAndToArray(List<StringBuilder> sbs, bool lower)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ar"></param>
+        /// <param name="maxLength"></param>
+        /// <param name="maxArrayLength"></param>
+        /// <param name="separatorLength"></param>
+        /// <param name="lower"></param>
+        /// <returns></returns>
+        static string[] ToPinyinsWorlds(string[][] ar, int maxLength, int maxArrayLength, int separatorLength, bool lower)
         {
-            var arr = new string[sbs.Count];
 
-            for (int i = 0; i < sbs.Count; i++)
+            var indexAr = new int[ar.Length];
+            indexAr[0] = -1;
+
+
+            var r = new List<string>();
+
+            StringBuilder sb = new StringBuilder();
+            while (maxArrayLength > r.Count && Next(ar, indexAr))
             {
-                arr[i] = lower ? sbs[i].ToString().ToLower() : sbs[i].ToString();
+                for (int i = 0; i < ar.Length; i++)
+                {
+                    sb.Append(ar[i][indexAr[i]]);
+                }
+                var len = maxLength - r.Sum(p => p.Length) - (separatorLength * r.Count);
+
+                if (len > sb.Length)
+                {
+
+                    r.Add(sb.ToString());
+                    sb.Clear();
+                }
+                else
+                {
+                    if (len > 0)
+                    {
+                        r.Add(sb.ToString(0, len));
+                    }
+                    sb.Clear();
+                    break;
+                }
             }
 
-            ClearSbList(sbs);
-            return arr;
+            return r.ToArray();
         }
 
-        static void ClearSbList(List<StringBuilder> sbs)
+        static bool Next(string[][] ar, int[] indexAr)
         {
-            sbs.ForEach(p => p.Clear());
+            for (int i = 0; i < indexAr.Length; i++)
+            {
+                var innerAr = ar[i];
+
+                if (innerAr.Length > indexAr[i] + 1)
+                {
+                    indexAr[i] += 1;
+                    return true;
+                }
+                else
+                {
+                    indexAr[i] = 0;
+                }
+            }
+            return false;
         }
         #endregion
     }
