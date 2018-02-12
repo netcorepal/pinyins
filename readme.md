@@ -7,7 +7,7 @@
 
 To install SchoolPal.Toolkit.Pinyins from the Package Manager Console, run the following command:
 ```
-Install-Package NetCorePal.Toolkit.Pinyins -Version 1.0.2
+Install-Package NetCorePal.Toolkit.Pinyins
 ```
 
 
