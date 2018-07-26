@@ -12,7 +12,7 @@
     <RepositoryUrl>https://github.com/netcorepal/pinyins.git</RepositoryUrl>
     <PackageProjectUrl>https://github.com/netcorepal/pinyins</PackageProjectUrl>
     <PackageTags>netcorepal pinyin</PackageTags>
-    <Description>暂不支持多音字智能识别，存在多音字则返回多种情况的组合</Description>
+    <Description>中文姓名转拼音</Description>
   </PropertyGroup>
 
   <ItemGroup>
