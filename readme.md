@@ -39,3 +39,17 @@ var v = PinyinConvert.ToPinyinSearchFomat("行行好吧");
 //分隔符默认为";"
 //上面代码返回字符串："HHHB;XHHB;HXHB;XXHB;HANGHANGHAOBA;HENGHANGHAOBA;XINGHANGHAOBA;HANGHENGHAOBA;HENGHENGHAOBA;XINGHENGHAOBA;HANGXINGHAOBA;HENGXINGHAOBA;XINGXINGHAOBA"
 ```
+
+# 中文名称转拼音
+
+# 安装
+Install-Package NetCorePal.Toolkit.Pinyins.ChineseName
+
+# 中文姓名转拼音
+var result = ChineseNamePinyinConvert.GetChineseNamePinYin("单雄信");
+
+# 返回结果：
+shanxiongxin
+
+# 说明：
+同时支持net45和netcore，支持百家姓多音字
