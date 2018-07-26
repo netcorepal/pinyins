@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.0</Version>
+    <PackageReleaseNotes>
+     中文姓名转拼音
+    </PackageReleaseNotes>
+    <Company>netcorepal</Company>
+    <Authors>netcorepal</Authors>
+    <RepositoryUrl>https://github.com/netcorepal/pinyins.git</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/netcorepal/pinyins</PackageProjectUrl>
+    <PackageTags>netcorepal pinyin</PackageTags>
+    <Description>暂不支持多音字智能识别，存在多音字则返回多种情况的组合</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NetCorePal.Toolkit.Pinyins" Version="1.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

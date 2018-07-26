@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\NetCorePal.Toolkit.Pinyins.ChineseName\NetCorePal.Toolkit.Pinyins.ChineseName.csproj" />
     <ProjectReference Include="..\NetCorePal.Toolkit.Pinyins\NetCorePal.Toolkit.Pinyins.csproj" />
   </ItemGroup>
 
