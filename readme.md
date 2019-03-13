@@ -43,7 +43,7 @@ var v = PinyinConvert.ToPinyinSearchFomat("行行好吧");
 # 中文名称转拼音
 
 ### 安装
-Install-Package NetCorePal.Toolkit.Pinyins.ChineseName
+Install-Package NetCorePal.Toolkit.Pinyins.ChineseName 【解决百家姓】
 
 ### 中文姓名转拼音
 var result = ChineseNamePinyinConvert.GetChineseNamePinYin("单雄信");
@@ -53,3 +53,17 @@ shanxiongxin
 
 ### 说明：
 同时支持net45和netcore，支持百家姓多音字
+
+# 中文名称转拼音升级版
+
+### 安装
+Install-Package NetCorePal.Pinyins.Client 【解决百家姓，并服务化动态完成多音字】
+
+### 中文姓名转拼音
+var result = ChineseNamePinyinConvert.GetChineseNamePinYin("单雄家");
+
+### 返回结果：
+shanxiongjia
+
+### 说明：
+同时支持net45和netcore，支持百家姓,多音字,并支持动态更新

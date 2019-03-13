@@ -12,7 +12,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCorePal.Toolkit.Pinyins"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCorePal.Toolkit.Pinyins.Test", "NetCorePal.Toolkit.Pinyins.Test\NetCorePal.Toolkit.Pinyins.Test.csproj", "{9D550457-2AE5-4485-A679-4B2047821690}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCorePal.Toolkit.Pinyins.ChineseName", "NetCorePal.Toolkit.Pinyins.ChineseName\NetCorePal.Toolkit.Pinyins.ChineseName.csproj", "{06F11A8B-1B4C-4E3B-AA14-905CBA33A69C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCorePal.Toolkit.Pinyins.ChineseName", "NetCorePal.Toolkit.Pinyins.ChineseName\NetCorePal.Toolkit.Pinyins.ChineseName.csproj", "{06F11A8B-1B4C-4E3B-AA14-905CBA33A69C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCorePal.Pinyins.Server", "NetCorePal.Pinyins.Server\NetCorePal.Pinyins.Server.csproj", "{7C47C161-AB8F-429D-A320-9AE8C9B0DE8F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCorePal.Pinyins.Client", "NetCorePal.Pinyins.Client\NetCorePal.Pinyins.Client.csproj", "{9A272F4F-3054-4837-966B-6AE0403802A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\test.csproj", "{1135A817-9AAF-4F1C-AE65-106F6BC55055}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +38,18 @@ Global
 		{06F11A8B-1B4C-4E3B-AA14-905CBA33A69C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06F11A8B-1B4C-4E3B-AA14-905CBA33A69C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06F11A8B-1B4C-4E3B-AA14-905CBA33A69C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C47C161-AB8F-429D-A320-9AE8C9B0DE8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C47C161-AB8F-429D-A320-9AE8C9B0DE8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C47C161-AB8F-429D-A320-9AE8C9B0DE8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C47C161-AB8F-429D-A320-9AE8C9B0DE8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A272F4F-3054-4837-966B-6AE0403802A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A272F4F-3054-4837-966B-6AE0403802A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A272F4F-3054-4837-966B-6AE0403802A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A272F4F-3054-4837-966B-6AE0403802A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1135A817-9AAF-4F1C-AE65-106F6BC55055}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1135A817-9AAF-4F1C-AE65-106F6BC55055}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1135A817-9AAF-4F1C-AE65-106F6BC55055}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1135A817-9AAF-4F1C-AE65-106F6BC55055}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

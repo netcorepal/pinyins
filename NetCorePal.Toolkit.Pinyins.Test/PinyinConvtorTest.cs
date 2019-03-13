@@ -132,7 +132,7 @@ namespace NetCorePal.Toolkit.Pinyins.Test
             var r = PinyinConvert.ToPinyins("’≈S", true);
             Assert.AreEqual("zhangs", r[0]);
         }
-        [TestMethod]
+        [ TestMethod]
         public void ToPinyins_WithLower_Letter()
         {
             var r = PinyinConvert.ToPinyins("’≈S");

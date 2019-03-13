@@ -16,7 +16,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MySql.Data" Version="6.9.12" />
     <PackageReference Include="NetCorePal.Toolkit.Pinyins" Version="1.1.0" />
+    <PackageReference Include="SchoolPal.Toolkit.Caching.Redis" Version="2.0.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,6 +34,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="MySql.Data">
+      <Version>8.0.15</Version>
+    </PackageReference>
   </ItemGroup>
 
 </Project>

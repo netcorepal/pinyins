@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>姓名转拼音服务</Description>
+    <PackageReleaseNotes>姓名转拼音服务</PackageReleaseNotes>
+    <Authors>netcorepal</Authors>
+    <Company>netcorepal</Company>
+    <PackageLicenseUrl></PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/netcorepal/pinyins</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/netcorepal/pinyins.git</RepositoryUrl>
+    <PackageTags>netcorepal pinyin</PackageTags>
+  </PropertyGroup>
+
+</Project>
