@@ -5,25 +5,24 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using NetCorePal.Toolkit.Pinyins.ChineseName;
+using NetCorePal.Pinyins.Service;
 
-namespace NetCorePal.Pinyins.Server.Controllers
+namespace NetCorePal.Pinyins.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class PinYinController : ControllerBase
     {
-        //DbContext
-        private readonly IConfiguration _config;
-        string connection;
-        string redisConnection;
-        string redisPrefix;
+        private readonly IPinYinService _pinyinService;
 
-        public PinYinController(IConfiguration _config)
+        /// <summary>
+        /// 拼音
+        /// </summary>
+        /// <param name="pinyinService"></param>
+        public PinYinController(IPinYinService pinyinService)
         {
-            connection = _config.GetConnectionString("DefaultConnection");
-            redisConnection = _config.GetConnectionString("RedisConnectionStrings");
-            redisPrefix = _config["RedisPrefix"];
+            _pinyinService = pinyinService;
+
         }
 
         /// <summary>
@@ -34,19 +33,19 @@ namespace NetCorePal.Pinyins.Server.Controllers
         [HttpGet]
         public ActionResult<string> GetChineseNamePinYin(string name)
         {
-            var result = ChineseNamePinyinConvert.GetChineseNamePinYin(name, connection, redisConnection, redisPrefix, null);
+            var result = _pinyinService.GetChineseNamePinYin(name);
             return result;
         }
 
         /// <summary>
         /// 新增多音字
         /// </summary>
-        /// <param name="name">新增多音字</param>
+        /// <param name="dto">新增多音字</param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult<bool> CreateWord(CreateWordModel name)
+        public ActionResult<bool> CreateWord(CreatePinYinDto dto)
         {
-            var result = ChineseNamePinyinConvert.CreateWordPinYin(name, connection, redisConnection, redisPrefix);
+            var result = _pinyinService.CreatePinYin(dto);
             return result;
         }
         /// <summary>
@@ -55,9 +54,9 @@ namespace NetCorePal.Pinyins.Server.Controllers
         /// <param name="model">多音字</param>
         /// <returns></returns>
         [HttpDelete]
-        public ActionResult<bool> DeleteWord(DeleteWordModel model)
+        public ActionResult<bool> DeleteWord(DeletePinYinDto model)
         {
-            var result = ChineseNamePinyinConvert.DeleteWordPinYin(model.Word, connection, redisConnection, redisPrefix);
+            var result = _pinyinService.DeletePinYin(model);
             return result;
         }
     }

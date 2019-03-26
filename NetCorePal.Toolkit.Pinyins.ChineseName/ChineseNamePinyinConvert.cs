@@ -47,6 +47,7 @@ namespace NetCorePal.Toolkit.Pinyins.ChineseName
         /// <returns>转换后的拼音</returns>
         public static string GetChineseNamePinYin(string name, string dbConnect = null, string redisConnect = null, string cachePrefix = null, DateTime? expiry = null)
         {
+            ReadPinYinConfigurationT();
             //校验姓名是否为空，如果为空，直接抛错
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -141,6 +142,59 @@ namespace NetCorePal.Toolkit.Pinyins.ChineseName
             }
             return dictionary;
         }
+        private static Dictionary<string, string> ReadPinYinConfigurationT()
+        {
+            //定义字典集
+            var dictionary = new Dictionary<string, string>();
+            var resource = Resources.ChineseNames;
+            if (string.IsNullOrWhiteSpace(resource))
+            {
+                throw new ArgumentNullException("resource", "百家姓资源不存在");
+            }
+            var strArray = resource.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+            foreach (var item in strArray)
+            {
+                string item_new = ReplaceString(item);
+                string[] nameStrArray = item_new.Split(new string[] { "\t" }, StringSplitOptions.None);
+                dictionary.Add(nameStrArray[0], nameStrArray[1]);
+            }
+            var conn = new MySqlConnection("server=192.168.50.208;port=3306;User Id=myth_dev;Pwd=myth_dev;Persist Security Info=True;database=consultant");
+            try
+            {
+                conn.Open();
+
+                using (var command = conn.CreateCommand())
+                {
+                    //command.Parameters.Add(new MySqlParameter() { ParameterName = "@WordKey", Value = item.Key });
+                    //command.Parameters.Add(new MySqlParameter() { ParameterName = "@WordValue", Value = item.Value });
+                    foreach (var item in dictionary)
+                    {
+                        command.CommandText = $"insert into baijiaxing(WordKey,WordValue) values('{item.Key}','{item.Value}')";
+                        int num = command.ExecuteNonQuery();
+                    }
+
+                    //int num = command.ExecuteNonQuery();
+                    //if (num > 0)
+                    //{
+                    //    return true;
+                    //}
+                    //else
+                    //{
+                    //    return false;
+                    //}
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return dictionary;
+        }
+
 
         /// <summary>
         /// 替换声调和空格

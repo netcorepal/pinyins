@@ -10,17 +10,23 @@ namespace NetCorePal.Pinyins.Client
     /// </summary>
     public class ChineseNamePinyinConvert
     {
+        //请求的地址
+        private string _url;
+        public ChineseNamePinyinConvert(string url)
+        {
+            _url = url;
+        }
         /// <summary>
         /// 获取姓名拼音
         /// </summary>
         /// <param name="name">姓名</param>
         /// <returns>转换后的拼音</returns>
-        public static string GetChineseNamePinYin(string name)
+        public string GetChineseNamePinYin(string name)
         {
             string result = string.Empty;
             try
             {
-                HttpWebRequest wbRequest = (HttpWebRequest)WebRequest.Create("http://192.168.20.202:9000/api/PinYin?name=" + name);
+                HttpWebRequest wbRequest = (HttpWebRequest)WebRequest.Create(_url + "/api/PinYin?name=" + name);
                 wbRequest.Method = "GET";
                 HttpWebResponse wbResponse = (HttpWebResponse)wbRequest.GetResponse();
                 using (Stream responseStream = wbResponse.GetResponseStream())

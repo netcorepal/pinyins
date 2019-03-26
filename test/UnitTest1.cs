@@ -1,5 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NetCorePal.Pinyins.Client;
+using NetCorePal.Toolkit.Pinyins.ChineseName;
 
 namespace test
 {
@@ -9,7 +9,8 @@ namespace test
         [TestMethod]
         public void TestMethod1()
         {
-            var result = ChineseNamePinyinConvert.GetChineseNamePinYin("单雄家");
+            //var result = ChineseNamePinyinConvert.GetChineseNamePinYin("单雄家");
+            var result = ChineseNamePinyinConvert.GetChineseNamePinYin("ass");
         }
     }
 }

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace NetCorePal.Pinyins.Server
+namespace NetCorePal.Pinyins.Api
 {
     public class Program
     {

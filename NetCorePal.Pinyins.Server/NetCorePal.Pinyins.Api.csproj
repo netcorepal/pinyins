@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netcoreapp2.1\NetCorePal.Pinyins.Server.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\netcoreapp2.1\NetCorePal.Pinyins.Api.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -19,11 +19,14 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
+    <PackageReference Include="SchoolPal.Toolkit.Caching.Redis" Version="2.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="2.4.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NetCorePal.Toolkit.Pinyins.ChineseName\NetCorePal.Toolkit.Pinyins.ChineseName.csproj" />
+    <ProjectReference Include="..\NetCorePal.Pinyins.Service\NetCorePal.Pinyins.Service.csproj" />
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JSONSchema="http://json.schemastore.org/cirrus" /></VisualStudio></ProjectExtensions>
 
 </Project>
