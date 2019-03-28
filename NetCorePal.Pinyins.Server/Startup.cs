@@ -18,6 +18,7 @@ using NetCorePal.Pinyins.Service;
 using SchoolPal.Toolkit.Caching;
 using SchoolPal.Toolkit.Caching.Redis;
 using NetCorePal.Pinyins.Service.Repository;
+using Exceptionless;
 
 namespace NetCorePal.Pinyins.Api
 {
@@ -34,7 +35,7 @@ namespace NetCorePal.Pinyins.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-#if DEBUG
+            //#if DEBUG
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new Info
@@ -50,7 +51,7 @@ namespace NetCorePal.Pinyins.Api
                 options.IncludeXmlComments(xmlPath);
             });
 
-#endif
+            //#endif
             //DbContext
             var connection = Configuration.GetConnectionString("DefaultConnection");
             //redis
@@ -77,15 +78,16 @@ namespace NetCorePal.Pinyins.Api
             {
                 app.UseHsts();
             }
-#if DEBUG
+            //#if DEBUG
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "NetCorePal.Pinyins.Api");
             });
-#endif
+            //#endif
             app.UseHttpsRedirection();
             app.UseMvc();
+            app.UseExceptionless(Configuration);
         }
     }
 }
