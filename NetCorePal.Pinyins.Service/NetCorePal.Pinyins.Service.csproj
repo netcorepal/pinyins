@@ -6,11 +6,8 @@
 
   <ItemGroup>
     <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.15" />
+    <PackageReference Include="NetCorePal.Toolkit.Pinyins" Version="1.1.0" />
     <PackageReference Include="SchoolPal.Toolkit.Caching.Redis" Version="2.0.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\NetCorePal.Toolkit.Pinyins\NetCorePal.Toolkit.Pinyins.csproj" />
   </ItemGroup>
 
 </Project>
